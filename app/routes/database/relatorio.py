@@ -19,3 +19,7 @@ def insert_relatorio():
 @bp.route("/list_relatorios")
 def list_relatorios():
     return list_relatorios_db()
+
+@bp.route("/get_relatorio/<rel_id>")
+def get_relatorio(rel_id):
+    return get_relatorio_by_id(rel_id)
