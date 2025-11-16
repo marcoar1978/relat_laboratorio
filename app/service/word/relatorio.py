@@ -1,24 +1,36 @@
 from docxtpl import DocxTemplate, RichText, R
 
 
+def get_valor_format(lotes):
+    
+    propriedades_list  = ['comp', 'altura', 'espessura', 'long', 'largura', 'transv']
+                              
+    for lote in lotes:
+        for res in lote.get('resultado'):
+            for propriedade in  propriedades_list:
+                format_valor(res, propriedade)
+                    
+    return lotes
+            
+
+def format_valor(res, propriedade):
+    color_red = "FF0000"
+    color_grey = "000000"
+
+    rt = RichText()
+    if res.get(propriedade).get('atende_abnt') == False:
+        rt.add(res[propriedade]['valor'], color=color_red)
+    else:
+        rt.add(res[propriedade]['valor'], color=color_grey) 
+    
+    res[propriedade]['valor_format'] = rt
+    
+
+
 
 def gerar_relatorio(dados):
-    
-    
-    for lote in dados.get('lote'):
-        for res in lote.get('resultado'):
-            rt = RichText()
-            if res.get('comp').get('atende_abnt') == False:
-                print(f"False - {res['comp']['valor']}")
-                rt.add(res['comp']['valor'], color="FF0000")
-            else:
-                print(f"True - {res['comp']['valor']}")
-                rt.add(res['comp']['valor'], color="808080") 
-            res['comp']['valor_format'] = rt
-
-            # print(res.get('comp'))
-
-    
+        
+    lotes_format = get_valor_format(dados.get('lote'))   
     
     context = {
         'razao_social': dados.get('cliente').get('razao_social'),
@@ -29,7 +41,7 @@ def gerar_relatorio(dados):
         'objetivo': dados.get('objetivo'),
 
         'lotes': dados.get('lote'),
-        'lotes_result': dados.get('lote'),
+        'lotes_result': lotes_format,
         
     }
 
