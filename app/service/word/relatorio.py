@@ -9,7 +9,11 @@ def get_valor_format(lotes):
         for res in lote.get('resultado'):
             for propriedade in  propriedades_list:
                 format_valor(res, propriedade)
-                    
+
+        format_atende_norma(lote)
+
+        print(lote.get('norma_abnt_format'))
+        
     return lotes
             
 
@@ -22,11 +26,20 @@ def format_valor(res, propriedade):
         rt.add(res[propriedade]['valor'], color=color_red)
     else:
         rt.add(res[propriedade]['valor'], color=color_grey) 
-    
+        
     res[propriedade]['valor_format'] = rt
     
+def format_atende_norma(lote):
+    color_red = "FF0000"
+    color_green = "00FF00"
+    rt = RichText()
 
-
+    if lote.get('norma_abnt').get('atende_norma_abnt') == True:
+        rt.add("ATENDE", color=color_green)
+    else:
+        rt.add("NÃO ATENDE", color=color_red)
+    
+    lote['norma_abnt_format'] = rt
 
 def gerar_relatorio(dados):
         
