@@ -51,7 +51,7 @@ $(document).ready(function () {
   $(document).on("click", "#salvar-relatorio", () => {
     get_dados_relatorio();
     // console.log(relatorio_input)
-    // insert_relatorio();
+    insert_relatorio();
   });
 
   $(document).on("click", "#page-lista", () => {
@@ -376,7 +376,7 @@ function get_dados_relatorio() {
         dimensao_teorica: $(`#dimensao_teorica__${num_lote}`).val(),
         fbk_teorico: $(`#fbk_teorico__${num_lote}`).val(),
         com_funcao_estrutural: $(`#com_funcao_estrutural__${num_lote}`).val(),
-        dimensao_teorica: dimensaoChoose[num_lote],
+        dimensao_padrao: dimensaoChoose[num_lote],
         resultado: resultados,
         norma_abnt: norma_abnt,
       };
