@@ -78,7 +78,7 @@ $(document).ready(function () {
     const lote_id = id_split[1];
     const sub_lote_id = id_split[2];
     if (!isNaN(value_n)) {
-      $(`#carga-n__${lote_id}__${sub_lote_id}`).val(value_n.toFixed(3));
+      $(`#carga-n__${lote_id}__${sub_lote_id}`).val(value_n.toFixed(0));
     } else {
       $(`#carga-n__${lote_id}__${sub_lote_id}`).val("");
     }
@@ -113,8 +113,8 @@ $(document).ready(function () {
       !isNaN(terceira) &&
       !isNaN(comp)
     ) {
-      const result = (primeira + segunda + terceira) / (comp / 100);
-      $(`#espessura__${lote_id}__${sub_lote_id}`).val(result.toFixed(3));
+      const result = (primeira + segunda + terceira) / (comp / 1000);
+      $(`#espessura__${lote_id}__${sub_lote_id}`).val(result.toFixed(0));
     }
   });
 
@@ -249,11 +249,10 @@ function render_form_referencia_blocos_sub() {
         <table style="margin-top:30px;margin-bottom:30px;background-color: #f8f9fa;font-size:14px;width:95%;"> 
              <thead>   
                 <tr>
-                    <th colspan='14' class='th-cel-table' style='font-weight:bold;padding:5px'>RESULTADOS</th>
+                    <th colspan='13' class='th-cel-table' style='font-weight:bold;padding:5px'>RESULTADOS</th>
                      
                 </tr>
                 <tr>
-                    <th rowspan='2' class='th-cel-table'>Nº Bloco</th>
                     <th rowspan='2' class='th-cel-table'>Massa<br>(gramas)</th>
                     <th colspan='3' class='th-cel-table'>Dimensões Médias (mm)</th>
                     <th colspan='2' class='th-cel-table'>Paredes (mm)</th>
@@ -292,22 +291,20 @@ function render_form_referencia_blocos_content_sub() {
   for (i = 0; i < 6; i++) {
     div = `
         <tr>
-            <td class='th-cel-table'><input type='text' id='n_bloco__${lote_referencia_blocos}__${i}' value='${
-      i + 1
-    }' class="n_bloco form-control"></td>
-            <td class='th-cel-table'><input type='text' id='massa__${lote_referencia_blocos}__${i}'   value='9485' class="massa form-control"></td>
-            <td class='th-cel-table'><input type='text' id='comp__${lote_referencia_blocos}__${i}'  value='390' class="comp mpa form-control"></td>
-            <td class='th-cel-table'><input type='text' id='largura__${lote_referencia_blocos}__${i}' value='141' class="largura mpa form-control"></td>
-            <td class='th-cel-table'><input type='text' id='altura__${lote_referencia_blocos}__${i}'  value='189' class="altura form-control"></td>
-            <td class='th-cel-table'><input type='text' id='long__${lote_referencia_blocos}__${i}' value='23' class="long form-control"></td>
-            <td class='th-cel-table'><input type='text' id='transv__${lote_referencia_blocos}__${i}' value='25' class="transv form-control"></td>
-            <td class='th-cel-table'><input type='text' id='parede-transv-1__${lote_referencia_blocos}__${i}'  value='10' class="parede-transv form-control"></td>
-            <td class='th-cel-table'><input type='text' id='parede-transv-2__${lote_referencia_blocos}__${i}' value='10' class="parede-transv form-control"></td>
-            <td class='th-cel-table'><input type='text' id='parede-transv-3__${lote_referencia_blocos}__${i}' value='10'  class="parede-transv form-control"></td>
-            <td class='th-cel-table'><input type='text' id='espessura__${lote_referencia_blocos}__${i}'  value='185' disabled=disabled class="espessura form-control"></td>
+            
+            <td class='th-cel-table'><input type='text' id='massa__${lote_referencia_blocos}__${i}'   class="massa form-control"></td>
+            <td class='th-cel-table'><input type='text' id='comp__${lote_referencia_blocos}__${i}'  class="comp mpa form-control"></td>
+            <td class='th-cel-table'><input type='text' id='largura__${lote_referencia_blocos}__${i}' class="largura mpa form-control"></td>
+            <td class='th-cel-table'><input type='text' id='altura__${lote_referencia_blocos}__${i}'  class="altura form-control"></td>
+            <td class='th-cel-table'><input type='text' id='long__${lote_referencia_blocos}__${i}' class="long form-control"></td>
+            <td class='th-cel-table'><input type='text' id='transv__${lote_referencia_blocos}__${i}' class="transv form-control"></td>
+            <td class='th-cel-table'><input type='text' id='parede-transv-1__${lote_referencia_blocos}__${i}'  class="parede-transv form-control"></td>
+            <td class='th-cel-table'><input type='text' id='parede-transv-2__${lote_referencia_blocos}__${i}' class="parede-transv form-control"></td>
+            <td class='th-cel-table'><input type='text' id='parede-transv-3__${lote_referencia_blocos}__${i}'  class="parede-transv form-control"></td>
+            <td class='th-cel-table'><input type='text' id='espessura__${lote_referencia_blocos}__${i}'  disabled=disabled class="espessura form-control"></td>
             <td class='th-cel-table'><input type='text' id='carga-kgf__${lote_referencia_blocos}__${i}'   class="carga-kgf mpa form-control"></td>
-            <td class='th-cel-table'><input type='text' id='carga-n__${lote_referencia_blocos}__${i}' value='238' disabled=disabled   class="carga-n form-control"></td>
-            <td class='th-cel-table'><input type='text' id='resistencia__${lote_referencia_blocos}__${i}'  value='4.3' disabled=disabled   class="resistencia form-control"></td>
+            <td class='th-cel-table'><input type='text' id='carga-n__${lote_referencia_blocos}__${i}' disabled=disabled   class="carga-n form-control" style='width:100px;'></td>
+            <td class='th-cel-table'><input type='text' id='resistencia__${lote_referencia_blocos}__${i}'  disabled=disabled class="resistencia form-control"></td>
        </tr>    
     
     `;
@@ -324,7 +321,7 @@ function calcular_mpa(lote_id, sub_lote_id) {
   const resistencia =
     parseFloat(carga_n) / (parseFloat(comp) * parseFloat(largura));
   if (!isNaN(resistencia)) {
-    $(`#resistencia__${lote_id}__${sub_lote_id}`).val(resistencia.toFixed(3));
+    $(`#resistencia__${lote_id}__${sub_lote_id}`).val(resistencia.toFixed(1));
   } else {
     $(`#resistencia__${lote_id}__${sub_lote_id}`).val("");
   }
@@ -336,14 +333,16 @@ function get_dados_relatorio() {
   relatorio["cliente"] = clientes.find((c) => c.id == cliente_id);
   relatorio["tipo_material"] = $(`#tipo_material`).val();
   relatorio["objetivo"] = $(`#objetivo`).val();
+  
 
   if (tipo_relatorio == 1) {
     relatorio["lote"] = [];
     for (num_lote = 0; num_lote < lote_referencia_blocos; num_lote++) {
       resultados = [];
+      
       for (num_lote_sub = 0; num_lote_sub < 6; num_lote_sub++) {
         resultado = {
-          n_bloco: $(`#n_bloco__${num_lote}__${num_lote_sub}`).val(),
+          // n_bloco: $(`#n_bloco__${num_lote}__${num_lote_sub}`).val(),
           massa: $(`#massa__${num_lote}__${num_lote_sub}`).val(),
           comp: verif_comp_abnt(num_lote, parseFloat($(`#comp__${num_lote}__${num_lote_sub}`).val())),
           largura: verif_largura_abnt(num_lote, parseFloat($(`#largura__${num_lote}__${num_lote_sub}`).val())),
@@ -362,12 +361,20 @@ function get_dados_relatorio() {
           espessura: verif_espessura_abnt(num_lote, parseFloat($(`#espessura__${num_lote}__${num_lote_sub}`).val())),
           carga_kgf: $(`#carga-kgf__${num_lote}__${num_lote_sub}`).val(),
           carga_n: $(`#carga-n__${num_lote}__${num_lote_sub}`).val(),
-          resistencia: $(`#resistencia__${num_lote}__${num_lote_sub}`).val(),
+          resistencia: parseFloat($(`#resistencia__${num_lote}__${num_lote_sub}`).val()),
         };
+
         resultados.push(resultado);
       }
-
+      
+      
+      fbk_geral = calcula_fbk (resultados, $(`#fbk_teorico__${num_lote}`).val())
+      classe = get_classe(fbk_geral, $(`#com_funcao_estrutural__${num_lote}`).val())
       norma_abnt = verif_atende_norma_abnt(num_lote, resultados);
+      resultados.sort((a, b) => parseFloat(a.resistencia) - parseFloat(b.resistencia))
+      resultados.forEach((res, index) => {
+        res['ordem'] = index + 1
+      })
 
       relatorio["lote"][num_lote] = {
         lote: $(`#lote__${num_lote}`).val(),
@@ -379,9 +386,11 @@ function get_dados_relatorio() {
         dimensao_padrao: dimensaoChoose[num_lote],
         resultado: resultados,
         norma_abnt: norma_abnt,
+        fbk: fbk_geral,
+        classe: classe
       };
     }
-    console.log(resultados)
+    console.log(relatorio)
     
     relatorio_input = {
       cliente_id: cliente_id,
@@ -390,6 +399,45 @@ function get_dados_relatorio() {
       detalhes: JSON.stringify(relatorio),
     };
   }
+}
+
+function get_classe(fbk, com_funcao_estrutural){
+  ret = ''
+  fbk_float = parseFloat(fbk)
+  if(com_funcao_estrutural == "Não"){
+    ret = 'C'
+  }
+  else if(com_funcao_estrutural == "Sim"){
+    if(fbk_float >= 3 && fbk_float < 4){
+      ret = 'C'
+    }
+    else if(fbk_float >= 4 && fbk_float < 8){
+      ret = 'B'
+    }
+    else if(fbk_float >= 8){
+      ret = 'A'
+    }
+    else {
+      ret = ''
+    }
+  } 
+
+}
+
+function calcula_fbk(resultados, fbk_teorico){
+  fbk_geral_list = []
+      resultados.forEach(res => {
+        fbk_geral_list.push(parseFloat(res.resistencia))
+      })
+ 
+  fbk_geral_list.sort((a, b) => parseFloat(a) - parseFloat(b))
+  console.log(fbk_geral_list)
+  console.log(`${fbk_geral_list[0]} - ${fbk_geral_list[1]} - ${fbk_geral_list[2]}`)
+  fbk_geral = (fbk_geral_list[0] + fbk_geral_list[1]) - fbk_geral_list[2]
+  atende_fbk = (parseFloat(fbk_teorico) <= fbk_geral)
+
+  return { fbk: fbk_geral, atende_fbk }
+
 }
 
 function verif_atende_norma_abnt(lote_id, resultados) {
