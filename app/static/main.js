@@ -136,6 +136,7 @@ function def_dimensoes(lote_id) {
   com_funcao_estrutural = $(`#com_funcao_estrutural__${lote_id}`).val();
 
   if (fbk_teorico && dimensao_teorica && com_funcao_estrutural) {
+    $('.span-dimensao').hide()
     if (com_funcao_estrutural == "Não") {
       if (dimensao_teorica == "14x19x39") {
         dimensaoChoose[parseInt(lote_id)] = dimensao[0];
@@ -157,6 +158,16 @@ function def_dimensoes(lote_id) {
         }
       }
     }
+    $(`#span-dimensao-comp__${lote_id}`).text(`${dimensaoChoose[parseInt(lote_id)].comprimento}±3mm`)
+    $(`#span-dimensao-largura__${lote_id}`).text(`${dimensaoChoose[parseInt(lote_id)].largura}±2mm`)
+    $(`#span-dimensao-altura__${lote_id}`).text(`${dimensaoChoose[parseInt(lote_id)].altura}±2mm`)
+    $(`#span-dimensao-long__${lote_id}`).text(`≥  ${dimensaoChoose[parseInt(lote_id)].paredes_long} mm`)
+    $(`#span-dimensao-transv__${lote_id}`).text(`≥  ${dimensaoChoose[parseInt(lote_id)].paredes_transv} mm`)
+    $(`#span-dimensao-espessura__${lote_id}`).text(`≥  ${dimensaoChoose[parseInt(lote_id)].espessura} mm`)
+    $(`.span-dimensao`).show()
+
+
+
     console.log(dimensaoChoose);
   }
 }
@@ -248,11 +259,7 @@ function render_form_referencia_blocos_sub() {
         <div style='display:flex;justify-content:center'>
         <table style="margin-top:30px;margin-bottom:30px;background-color: #f8f9fa;font-size:14px;width:95%;"> 
              <thead>   
-                <tr>
-                    <th colspan='13' class='th-cel-table' style='font-weight:bold;padding:5px'>RESULTADOS</th>
-                     
-                </tr>
-                <tr>
+                <tr style='background-color:#5A595D; color: #fff'>
                     <th rowspan='2' class='th-cel-table'>Massa<br>(gramas)</th>
                     <th colspan='3' class='th-cel-table'>Dimensões Médias (mm)</th>
                     <th colspan='2' class='th-cel-table'>Paredes (mm)</th>
@@ -263,7 +270,7 @@ function render_form_referencia_blocos_sub() {
                     <th rowspan='2' class='th-cel-table'>Resistência à compressão<br/>(MPa)</th>
                    
                  </tr>
-                <tr>           
+                <tr style='background-color:#5A595D; color: #fff'>           
                     <th class='th-cel-table'>Comp.</th>
                     <th class='th-cel-table'>Largura</th>
                     <th class='th-cel-table'>Altura</th>
@@ -272,6 +279,22 @@ function render_form_referencia_blocos_sub() {
                     <th class='th-cel-table'>1º</th>
                     <th class='th-cel-table'>2º</th>
                     <th class='th-cel-table'>3º</th>
+                </tr>
+                <tr style='height:35px'>
+                  <th class='th-cel-table'></th>
+                  <th class='th-cel-table'><span id='span-dimensao-comp__${lote_referencia_blocos}' class='span-dimensao'></span></th>
+                  <th class='th-cel-table'><span id='span-dimensao-largura__${lote_referencia_blocos}' class='span-dimensao'></span></th>
+                  <th class='th-cel-table'><span id='span-dimensao-altura__${lote_referencia_blocos}' class='span-dimensao'></span></th>
+                  <th class='th-cel-table'><span id='span-dimensao-long__${lote_referencia_blocos}' class='span-dimensao'></span></th>
+                  <th class='th-cel-table'><span id='span-dimensao-transv__${lote_referencia_blocos}' class='span-dimensao'></span></th>
+                  <th class='th-cel-table'></th>
+                  <th class='th-cel-table'></th>
+                  <th class='th-cel-table'></th>
+                  <th class='th-cel-table'><span id='span-dimensao-espessura__${lote_referencia_blocos}'></span></th>
+                  <th class='th-cel-table'></th>
+                  <th class='th-cel-table'></th>
+                  <th class='th-cel-table'></th>
+
                 </tr>
             </thead>
             <tbody id='table-lote-sub__${lote_referencia_blocos}'>
@@ -368,7 +391,7 @@ function get_dados_relatorio() {
       }
       
       
-      fbk_geral = calcula_fbk (resultados, $(`#fbk_teorico__${num_lote}`).val())
+      fbk_geral = calcula_fbk(resultados, $(`#fbk_teorico__${num_lote}`).val())
       classe = get_classe(fbk_geral, $(`#com_funcao_estrutural__${num_lote}`).val())
       norma_abnt = verif_atende_norma_abnt(num_lote, resultados);
       resultados.sort((a, b) => parseFloat(a.resistencia) - parseFloat(b.resistencia))
@@ -403,7 +426,7 @@ function get_dados_relatorio() {
 
 function get_classe(fbk, com_funcao_estrutural){
   ret = ''
-  fbk_float = parseFloat(fbk)
+  fbk_float = parseFloat(fbk.fbk)
   if(com_funcao_estrutural == "Não"){
     ret = 'C'
   }
@@ -422,6 +445,7 @@ function get_classe(fbk, com_funcao_estrutural){
     }
   } 
 
+  return ret
 }
 
 function calcula_fbk(resultados, fbk_teorico){
@@ -436,7 +460,7 @@ function calcula_fbk(resultados, fbk_teorico){
   fbk_geral = (fbk_geral_list[0] + fbk_geral_list[1]) - fbk_geral_list[2]
   atende_fbk = (parseFloat(fbk_teorico) <= fbk_geral)
 
-  return { fbk: fbk_geral, atende_fbk }
+  return { fbk: parseFloat(fbk_geral.toFixed(1)), atende_fbk }
 
 }
 
