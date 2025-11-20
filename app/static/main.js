@@ -3,9 +3,11 @@ init();
 function init() {
   get_clientes();
   list_relatorios();
+ 
 
   setTimeout(() => {
     $("#icon-minus-sub").hide();
+     show_form()
   }, 400);
 }
 
@@ -51,7 +53,7 @@ $(document).ready(function () {
   $(document).on("click", "#salvar-relatorio", () => {
     get_dados_relatorio();
     // console.log(relatorio_input)
-    insert_relatorio();
+    // insert_relatorio();
   });
 
   $(document).on("click", "#page-lista", () => {
@@ -129,6 +131,16 @@ $(document).ready(function () {
     def_dimensoes(lote_id);
   });
 });
+
+
+
+function show_form(){
+  $(".div-insercao-relatorio").hide();
+  $(`#div-insercao-relatorio__1`).show();
+  render_form_referencia_blocos();
+  $("#salvar-relatorio").show();
+   
+}
 
 function def_dimensoes(lote_id) {
   fbk_teorico = $(`#fbk_teorico__${lote_id}`).val();
@@ -220,7 +232,7 @@ function render_form_referencia_blocos() {
                     <input type="text" id='lote__${lote_referencia_blocos}' class="form-control lote">
                   </td>
                   <td style="padding-left: 5px;padding-right: 5px;">
-                    <input type="text" id='data_fabricacao__${lote_referencia_blocos}' class="form-control data_fabricacao">
+                    <input type="date" id='data_fabricacao__${lote_referencia_blocos}' class="form-control data_fabricacao">
                   </td>
                   <td style="padding-left: 5px;padding-right: 5px;">
                     <input type="text" id='blocos_concreto__${lote_referencia_blocos}' class="form-control blocos_concreto">
@@ -315,19 +327,19 @@ function render_form_referencia_blocos_content_sub() {
     div = `
         <tr>
             
-            <td class='th-cel-table'><input type='text' id='massa__${lote_referencia_blocos}__${i}'   class="massa form-control"></td>
-            <td class='th-cel-table'><input type='text' id='comp__${lote_referencia_blocos}__${i}'  class="comp mpa form-control"></td>
-            <td class='th-cel-table'><input type='text' id='largura__${lote_referencia_blocos}__${i}' class="largura mpa form-control"></td>
-            <td class='th-cel-table'><input type='text' id='altura__${lote_referencia_blocos}__${i}'  class="altura form-control"></td>
-            <td class='th-cel-table'><input type='text' id='long__${lote_referencia_blocos}__${i}' class="long form-control"></td>
-            <td class='th-cel-table'><input type='text' id='transv__${lote_referencia_blocos}__${i}' class="transv form-control"></td>
-            <td class='th-cel-table'><input type='text' id='parede-transv-1__${lote_referencia_blocos}__${i}'  class="parede-transv form-control"></td>
-            <td class='th-cel-table'><input type='text' id='parede-transv-2__${lote_referencia_blocos}__${i}' class="parede-transv form-control"></td>
-            <td class='th-cel-table'><input type='text' id='parede-transv-3__${lote_referencia_blocos}__${i}'  class="parede-transv form-control"></td>
-            <td class='th-cel-table'><input type='text' id='espessura__${lote_referencia_blocos}__${i}'  disabled=disabled class="espessura form-control"></td>
-            <td class='th-cel-table'><input type='text' id='carga-kgf__${lote_referencia_blocos}__${i}'   class="carga-kgf mpa form-control"></td>
-            <td class='th-cel-table'><input type='text' id='carga-n__${lote_referencia_blocos}__${i}' disabled=disabled   class="carga-n form-control" style='width:100px;'></td>
-            <td class='th-cel-table'><input type='text' id='resistencia__${lote_referencia_blocos}__${i}'  disabled=disabled class="resistencia form-control"></td>
+            <td class='th-cel-table'><input type='text' id='massa__${lote_referencia_blocos}__${i}' value='${i}'  class="massa form-control"></td>
+            <td class='th-cel-table'><input type='text' id='comp__${lote_referencia_blocos}__${i}' value='${i}'  class="comp mpa form-control"></td>
+            <td class='th-cel-table'><input type='text' id='largura__${lote_referencia_blocos}__${i}' value='${i}' class="largura mpa form-control"></td>
+            <td class='th-cel-table'><input type='text' id='altura__${lote_referencia_blocos}__${i}' value='${i}'  class="altura form-control"></td>
+            <td class='th-cel-table'><input type='text' id='long__${lote_referencia_blocos}__${i}' value='${i}' class="long form-control"></td>
+            <td class='th-cel-table'><input type='text' id='transv__${lote_referencia_blocos}__${i}' value='${i}' class="transv form-control"></td>
+            <td class='th-cel-table'><input type='text' id='parede-transv-1__${lote_referencia_blocos}__${i}' value='${i}'  class="parede-transv form-control"></td>
+            <td class='th-cel-table'><input type='text' id='parede-transv-2__${lote_referencia_blocos}__${i}' value='${i}' class="parede-transv form-control"></td>
+            <td class='th-cel-table'><input type='text' id='parede-transv-3__${lote_referencia_blocos}__${i}' value='${i}'  class="parede-transv form-control"></td>
+            <td class='th-cel-table'><input type='text' id='espessura__${lote_referencia_blocos}__${i}' value='${i}'  disabled=disabled class="espessura form-control"></td>
+            <td class='th-cel-table'><input type='text' id='carga-kgf__${lote_referencia_blocos}__${i}'  value='${i}'  class="carga-kgf mpa form-control"></td>
+            <td class='th-cel-table'><input type='text' id='carga-n__${lote_referencia_blocos}__${i}' value='${i}' disabled=disabled   class="carga-n form-control" style='width:100px;'></td>
+            <td class='th-cel-table'><input type='text' id='resistencia__${lote_referencia_blocos}__${i}' value='${i}'  disabled=disabled class="resistencia form-control"></td>
        </tr>    
     
     `;
@@ -355,6 +367,9 @@ function get_dados_relatorio() {
   cliente_id = $(`#cliente_id`).val();
   relatorio["cliente"] = clientes.find((c) => c.id == cliente_id);
   relatorio["tipo_material"] = $(`#tipo_material`).val();
+  relatorio["data_ensaio"] = moment($(`#data_ensaio`).val());
+  relatorio["data_ensaio_format"] = relatorio["data_ensaio"].format('D [de] MMMM [de] YYYY')
+  console.log(relatorio["data_ensaio"])
   relatorio["objetivo"] = $(`#objetivo`).val();
   
 
@@ -384,13 +399,13 @@ function get_dados_relatorio() {
           espessura: verif_espessura_abnt(num_lote, parseFloat($(`#espessura__${num_lote}__${num_lote_sub}`).val())),
           carga_kgf: $(`#carga-kgf__${num_lote}__${num_lote_sub}`).val(),
           carga_n: $(`#carga-n__${num_lote}__${num_lote_sub}`).val(),
-          resistencia: parseFloat($(`#resistencia__${num_lote}__${num_lote_sub}`).val()),
+          resistencia: parseFloat($(`#resistencia__${num_lote}__${num_lote_sub}`).val()).toFixed(1),
         };
 
         resultados.push(resultado);
       }
       
-      
+      media = get_media_mpa(resultados)
       fbk_geral = calcula_fbk(resultados, $(`#fbk_teorico__${num_lote}`).val())
       classe = get_classe(fbk_geral, $(`#com_funcao_estrutural__${num_lote}`).val())
       norma_abnt = verif_atende_norma_abnt(num_lote, resultados);
@@ -399,9 +414,12 @@ function get_dados_relatorio() {
         res['ordem'] = index + 1
       })
 
+      data_fabricacao_moment = moment($(`#data_fabricacao__${num_lote}`).val())
+
       relatorio["lote"][num_lote] = {
         lote: $(`#lote__${num_lote}`).val(),
-        data_fabricacao: $(`#data_fabricacao__${num_lote}`).val(),
+        data_fabricacao: data_fabricacao_moment.format('DD/MM/YYYY'),
+        idade_fabicacao: relatorio["data_ensaio"].diff(data_fabricacao_moment, 'day'),
         blocos_concreto: $(`#blocos_concreto__${num_lote}`).val(),
         dimensao_teorica: $(`#dimensao_teorica__${num_lote}`).val(),
         fbk_teorico: $(`#fbk_teorico__${num_lote}`).val(),
@@ -410,7 +428,8 @@ function get_dados_relatorio() {
         resultado: resultados,
         norma_abnt: norma_abnt,
         fbk: fbk_geral,
-        classe: classe
+        classe: classe,
+        media: media
       };
     }
     console.log(relatorio)
@@ -422,6 +441,14 @@ function get_dados_relatorio() {
       detalhes: JSON.stringify(relatorio),
     };
   }
+}
+
+function get_media_mpa(resultados){
+    ret = 0
+    resultados.forEach(res => {
+      ret += parseFloat(res.resistencia)
+    })
+    return parseFloat((ret / 6)).toFixed(1)
 }
 
 function get_classe(fbk, com_funcao_estrutural){

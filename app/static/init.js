@@ -1,4 +1,4 @@
-tipo_relatorio = 0;
+tipo_relatorio = 1;
 clientes = [];
 relatorios = [];
 relatorio_input = {};
