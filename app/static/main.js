@@ -28,9 +28,9 @@ $(document).ready(function () {
   $(document).on("change", "#tipo_material", () => {
     value = $("#tipo_material").val();
     caracterizacao = "";
-    if (value == "bloco_concreto")
+    if (value == "Bloco de concreto")
       caracterizacao = "Objetivo - Bloco de concreto";
-    else if (value == "caracterizacao")
+    else if (value == "Caracterização de agregados")
       caracterizacao = "Objetivo - Caracterização de agregados";
     $("#objetivo").val(caracterizacao);
   });
@@ -370,6 +370,9 @@ function get_dados_relatorio() {
   relatorio["data_ensaio_format"] = relatorio["data_ensaio"].format('D [de] MMMM [de] YYYY')
   console.log(relatorio["data_ensaio"])
   relatorio["objetivo"] = $(`#objetivo`).val();
+  relatorio["laboratorio"] = $(`#laboratorio`).val();
+  relatorio["responsavel"] = $(`#responsavel`).val();
+  relatorio["cabecalho"] = $(`#cabecalho`).val();
   
 
   if (tipo_relatorio == 1) {

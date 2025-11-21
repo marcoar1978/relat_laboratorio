@@ -72,7 +72,7 @@
           <select
             class="form-select"
             id="cliente_id"
-            style="width: 300px; margin-left: 20px"
+            style="width: 250px;"
           ></select>
           <button type="button" class="btn btn-light" style="margin-left: 20px">
             Novo Cliente
@@ -85,7 +85,7 @@
             <option value="2">Tipo 2</option>
             <option value="3">Tipo 3</option>
           </select> -->
-          <div style="width: 150px;">Data do ensaio: </div><input type="date" class="form-control"  id="data_ensaio" >
+          <div style="width: 150px;">ENSAIO: </div><input type="date" class="form-control"  id="data_ensaio" >
         </div>
       </div>
 
@@ -93,11 +93,11 @@
         <select
           class="form-select"
           id="tipo_material"
-          style="width: 300px; margin-left: 20px"
+          style="width: 250px;"
         >
           <option value="0">TIPO DE MATERIAL</option>
-          <option value="bloco_concreto">Bloco de concreto</option>
-          <option value="caracterizacao">Caracterização de agregados</option>
+          <option value="Bloco de concreto">Bloco de concreto</option>
+          <option value="Caracterização de agregados">Caracterização de agregados</option>
         </select>
         
 
@@ -109,6 +109,33 @@
           style="margin-left: 20px"
         />
       </div>
+      <div style="display: flex; justify-content: start; margin-top: 20px">
+          <select
+          class="form-select"
+          id="laboratorio"
+          style="width: 250px;"
+        >
+          <option value="0">LABORATÓRIO</option>
+          <option value="Móvel">Móvel</option>
+          <option value="Externo">Externo</option>
+        </select>
+      
+      <input
+          type="input"
+          class="form-control"
+          id="responsavel"
+          placeholder="Responsável"
+          style="margin-left: 20px; width:500px"
+        />
+
+      <input
+          type="input"
+          class="form-control"
+          id="cabecalho"
+          placeholder="Cabeçalho: Empresa - Data"
+          style="margin-left: 20px;"
+        />
+     </div>   
 
       <div
         id="div-insercao-relatorio__1"

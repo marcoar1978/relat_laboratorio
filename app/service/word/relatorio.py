@@ -66,6 +66,9 @@ def gerar_relatorio(dados):
         'tipo_material': dados.get('tipo_material'),
         'objetivo': dados.get('objetivo'),
         'data_ensaio_format': dados.get('data_ensaio_format'),
+        'laboratorio': dados.get('laboratorio'),
+        'responsavel': dados.get('responsavel'),
+        'cabecalho': dados.get('cabecalho'),
 
         'lotes': dados.get('lote'),
         'lotes_result': lotes_format,
