@@ -51,8 +51,10 @@ $(document).ready(function () {
   });
 
   $(document).on("click", "#salvar-relatorio", () => {
-    get_dados_relatorio();
-    insert_relatorio();
+     valida_campos()
+    console.log($(`#data_ensaio`).val())
+    // get_dados_relatorio();
+    // insert_relatorio();
   });
 
   $(document).on("click", "#page-lista", () => {
@@ -228,26 +230,26 @@ function render_form_referencia_blocos() {
                 </tr>
                 <tr>
                   <td style="padding-left: 5px;padding-right: 5px;">
-                    <input type="text" id='lote__${lote_referencia_blocos}' class="form-control lote">
+                    <input type="text" id='lote__${lote_referencia_blocos}' class="form-control lote input-rel">
                   </td>
                   <td style="padding-left: 5px;padding-right: 5px;">
-                    <input type="date" id='data_fabricacao__${lote_referencia_blocos}' class="form-control data_fabricacao">
+                    <input type="date" id='data_fabricacao__${lote_referencia_blocos}' class="form-control data_fabricacao input-rel">
                   </td>
                   <td style="padding-left: 5px;padding-right: 5px;">
-                    <input type="text" id='blocos_concreto__${lote_referencia_blocos}' class="form-control blocos_concreto">
+                    <input type="text" id='blocos_concreto__${lote_referencia_blocos}' class="form-control blocos_concreto input-rel">
                   </td>
                   <td style="padding-left: 5px;padding-right: 5px;">
-                    <select id='dimensao_teorica__${lote_referencia_blocos}' class="form-select dimensao_teorica">
+                    <select id='dimensao_teorica__${lote_referencia_blocos}' class="form-select dimensao_teorica input-rel">
                       <option value=''>
                       <option value='14x19x39'>14x19x39 cm
                       <option value='19x19x39'>19x19x39 cm
                     </select>
                   </td>
                   <td style="padding-left: 5px;padding-right: 5px;">
-                    <input type="text" id='fbk_teorico__${lote_referencia_blocos}' class="form-control fbk_teorico">
+                    <input type="text" id='fbk_teorico__${lote_referencia_blocos}' class="form-control fbk_teorico input-rel">
                   </td>
                   <td style="padding-left: 5px;padding-right: 5px;">
-                    <select id='com_funcao_estrutural__${lote_referencia_blocos}' class="form-select com_funcao_estrutural">
+                    <select id='com_funcao_estrutural__${lote_referencia_blocos}' class="form-select com_funcao_estrutural input-rel">
                       <option value="">
                       <option value="Sim">Sim
                       <option value="Não">Não  
@@ -326,19 +328,19 @@ function render_form_referencia_blocos_content_sub() {
     div = `
         <tr>
             
-            <td class='th-cel-table'><input type='text' id='massa__${lote_referencia_blocos}__${i}'  class="massa form-control"></td>
-            <td class='th-cel-table'><input type='text' id='comp__${lote_referencia_blocos}__${i}'  class="comp mpa form-control"></td>
-            <td class='th-cel-table'><input type='text' id='largura__${lote_referencia_blocos}__${i}' class="largura mpa form-control"></td>
-            <td class='th-cel-table'><input type='text' id='altura__${lote_referencia_blocos}__${i}'  class="altura form-control"></td>
-            <td class='th-cel-table'><input type='text' id='long__${lote_referencia_blocos}__${i}' class="long form-control"></td>
-            <td class='th-cel-table'><input type='text' id='transv__${lote_referencia_blocos}__${i}' class="transv form-control"></td>
-            <td class='th-cel-table'><input type='text' id='parede-transv-1__${lote_referencia_blocos}__${i}'  class="parede-transv form-control"></td>
-            <td class='th-cel-table'><input type='text' id='parede-transv-2__${lote_referencia_blocos}__${i}' class="parede-transv form-control"></td>
-            <td class='th-cel-table'><input type='text' id='parede-transv-3__${lote_referencia_blocos}__${i}'  class="parede-transv form-control"></td>
-            <td class='th-cel-table'><input type='text' id='espessura__${lote_referencia_blocos}__${i}'  disabled=disabled class="espessura form-control"></td>
-            <td class='th-cel-table'><input type='text' id='carga-kgf__${lote_referencia_blocos}__${i}'   class="carga-kgf mpa form-control"></td>
-            <td class='th-cel-table'><input type='text' id='carga-n__${lote_referencia_blocos}__${i}' disabled=disabled   class="carga-n form-control" style='width:100px;'></td>
-            <td class='th-cel-table'><input type='text' id='resistencia__${lote_referencia_blocos}__${i}'   disabled=disabled class="resistencia form-control"></td>
+            <td class='th-cel-table'><input type='text' id='massa__${lote_referencia_blocos}__${i}'  class="massa form-control input-rel"></td>
+            <td class='th-cel-table'><input type='text' id='comp__${lote_referencia_blocos}__${i}'  class="comp mpa form-control input-rel"></td>
+            <td class='th-cel-table'><input type='text' id='largura__${lote_referencia_blocos}__${i}' class="largura mpa form-control input-rel"></td>
+            <td class='th-cel-table'><input type='text' id='altura__${lote_referencia_blocos}__${i}'  class="altura form-control input-rel"></td>
+            <td class='th-cel-table'><input type='text' id='long__${lote_referencia_blocos}__${i}' class="long form-control input-rel"></td>
+            <td class='th-cel-table'><input type='text' id='transv__${lote_referencia_blocos}__${i}' class="transv form-control input-rel"></td>
+            <td class='th-cel-table'><input type='text' id='parede-transv-1__${lote_referencia_blocos}__${i}'  class="parede-transv form-control input-rel"></td>
+            <td class='th-cel-table'><input type='text' id='parede-transv-2__${lote_referencia_blocos}__${i}' class="parede-transv form-control input-rel"></td>
+            <td class='th-cel-table'><input type='text' id='parede-transv-3__${lote_referencia_blocos}__${i}'  class="parede-transv form-control input-rel"></td>
+            <td class='th-cel-table'><input type='text' id='espessura__${lote_referencia_blocos}__${i}'  disabled=disabled class="espessura form-control input-rel"></td>
+            <td class='th-cel-table'><input type='text' id='carga-kgf__${lote_referencia_blocos}__${i}'   class="carga-kgf mpa form-control input-rel"></td>
+            <td class='th-cel-table'><input type='text' id='carga-n__${lote_referencia_blocos}__${i}' disabled=disabled   class="carga-n form-control input-rel" style='width:100px;'></td>
+            <td class='th-cel-table'><input type='text' id='resistencia__${lote_referencia_blocos}__${i}'   disabled=disabled class="resistencia form-control input-rel"></td>
        </tr>    
     
     `;
@@ -361,6 +363,18 @@ function calcular_mpa(lote_id, sub_lote_id) {
   }
 }
 
+function valida_campos(){
+  let ret = true
+  $('.input-rel').get().forEach(obj => {
+    campo = $(`#${obj.id}`)
+    if(!campo.val()){
+      console.log(campo.id)
+      ret = false
+    }
+  })
+  console.log(ret)
+}
+
 function get_dados_relatorio() {
   relatorio = {};
   cliente_id = $(`#cliente_id`).val();
@@ -368,7 +382,6 @@ function get_dados_relatorio() {
   relatorio["tipo_material"] = $(`#tipo_material`).val();
   relatorio["data_ensaio"] = moment($(`#data_ensaio`).val());
   relatorio["data_ensaio_format"] = relatorio["data_ensaio"].format('D [de] MMMM [de] YYYY')
-  console.log(relatorio["data_ensaio"])
   relatorio["objetivo"] = $(`#objetivo`).val();
   relatorio["laboratorio"] = $(`#laboratorio`).val();
   relatorio["responsavel"] = $(`#responsavel`).val();
