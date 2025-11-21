@@ -52,8 +52,7 @@ $(document).ready(function () {
 
   $(document).on("click", "#salvar-relatorio", () => {
     get_dados_relatorio();
-    // console.log(relatorio_input)
-    // insert_relatorio();
+    insert_relatorio();
   });
 
   $(document).on("click", "#page-lista", () => {
@@ -327,19 +326,19 @@ function render_form_referencia_blocos_content_sub() {
     div = `
         <tr>
             
-            <td class='th-cel-table'><input type='text' id='massa__${lote_referencia_blocos}__${i}' value='${i}'  class="massa form-control"></td>
-            <td class='th-cel-table'><input type='text' id='comp__${lote_referencia_blocos}__${i}' value='${i}'  class="comp mpa form-control"></td>
-            <td class='th-cel-table'><input type='text' id='largura__${lote_referencia_blocos}__${i}' value='${i}' class="largura mpa form-control"></td>
-            <td class='th-cel-table'><input type='text' id='altura__${lote_referencia_blocos}__${i}' value='${i}'  class="altura form-control"></td>
-            <td class='th-cel-table'><input type='text' id='long__${lote_referencia_blocos}__${i}' value='${i}' class="long form-control"></td>
-            <td class='th-cel-table'><input type='text' id='transv__${lote_referencia_blocos}__${i}' value='${i}' class="transv form-control"></td>
-            <td class='th-cel-table'><input type='text' id='parede-transv-1__${lote_referencia_blocos}__${i}' value='${i}'  class="parede-transv form-control"></td>
-            <td class='th-cel-table'><input type='text' id='parede-transv-2__${lote_referencia_blocos}__${i}' value='${i}' class="parede-transv form-control"></td>
-            <td class='th-cel-table'><input type='text' id='parede-transv-3__${lote_referencia_blocos}__${i}' value='${i}'  class="parede-transv form-control"></td>
-            <td class='th-cel-table'><input type='text' id='espessura__${lote_referencia_blocos}__${i}' value='${i}'  disabled=disabled class="espessura form-control"></td>
-            <td class='th-cel-table'><input type='text' id='carga-kgf__${lote_referencia_blocos}__${i}'  value='${i}'  class="carga-kgf mpa form-control"></td>
-            <td class='th-cel-table'><input type='text' id='carga-n__${lote_referencia_blocos}__${i}' value='${i}' disabled=disabled   class="carga-n form-control" style='width:100px;'></td>
-            <td class='th-cel-table'><input type='text' id='resistencia__${lote_referencia_blocos}__${i}' value='${i}'  disabled=disabled class="resistencia form-control"></td>
+            <td class='th-cel-table'><input type='text' id='massa__${lote_referencia_blocos}__${i}'  class="massa form-control"></td>
+            <td class='th-cel-table'><input type='text' id='comp__${lote_referencia_blocos}__${i}'  class="comp mpa form-control"></td>
+            <td class='th-cel-table'><input type='text' id='largura__${lote_referencia_blocos}__${i}' class="largura mpa form-control"></td>
+            <td class='th-cel-table'><input type='text' id='altura__${lote_referencia_blocos}__${i}'  class="altura form-control"></td>
+            <td class='th-cel-table'><input type='text' id='long__${lote_referencia_blocos}__${i}' class="long form-control"></td>
+            <td class='th-cel-table'><input type='text' id='transv__${lote_referencia_blocos}__${i}' class="transv form-control"></td>
+            <td class='th-cel-table'><input type='text' id='parede-transv-1__${lote_referencia_blocos}__${i}'  class="parede-transv form-control"></td>
+            <td class='th-cel-table'><input type='text' id='parede-transv-2__${lote_referencia_blocos}__${i}' class="parede-transv form-control"></td>
+            <td class='th-cel-table'><input type='text' id='parede-transv-3__${lote_referencia_blocos}__${i}'  class="parede-transv form-control"></td>
+            <td class='th-cel-table'><input type='text' id='espessura__${lote_referencia_blocos}__${i}'  disabled=disabled class="espessura form-control"></td>
+            <td class='th-cel-table'><input type='text' id='carga-kgf__${lote_referencia_blocos}__${i}'   class="carga-kgf mpa form-control"></td>
+            <td class='th-cel-table'><input type='text' id='carga-n__${lote_referencia_blocos}__${i}' disabled=disabled   class="carga-n form-control" style='width:100px;'></td>
+            <td class='th-cel-table'><input type='text' id='resistencia__${lote_referencia_blocos}__${i}'   disabled=disabled class="resistencia form-control"></td>
        </tr>    
     
     `;
@@ -382,6 +381,7 @@ function get_dados_relatorio() {
         resultado = {
           // n_bloco: $(`#n_bloco__${num_lote}__${num_lote_sub}`).val(),
           massa: $(`#massa__${num_lote}__${num_lote_sub}`).val(),
+          massa_f: parseFloat($(`#massa__${num_lote}__${num_lote_sub}`).val()).toLocaleString('pt-BR'),
           comp: verif_comp_abnt(num_lote, parseFloat($(`#comp__${num_lote}__${num_lote_sub}`).val())),
           largura: verif_largura_abnt(num_lote, parseFloat($(`#largura__${num_lote}__${num_lote_sub}`).val())),
           altura: verif_altura_abnt(num_lote, parseFloat($(`#altura__${num_lote}__${num_lote_sub}`).val())),
@@ -399,7 +399,10 @@ function get_dados_relatorio() {
           espessura: verif_espessura_abnt(num_lote, parseFloat($(`#espessura__${num_lote}__${num_lote_sub}`).val())),
           carga_kgf: $(`#carga-kgf__${num_lote}__${num_lote_sub}`).val(),
           carga_n: $(`#carga-n__${num_lote}__${num_lote_sub}`).val(),
-          resistencia: parseFloat($(`#resistencia__${num_lote}__${num_lote_sub}`).val()).toFixed(1),
+          carga_n_f: parseFloat($(`#carga-n__${num_lote}__${num_lote_sub}`).val()).toLocaleString('pt-BR',{style: 'decimal', minimumFractionDigits: 0, maximumFractionDigits: 0} ),
+          resistencia: parseFloat($(`#resistencia__${num_lote}__${num_lote_sub}`).val()),
+          resistencia_f: parseFloat($(`#resistencia__${num_lote}__${num_lote_sub}`).val()).toLocaleString('pt-BR',{style: 'decimal', minimumFractionDigits: 1, maximumFractionDigits: 1} )
+
         };
 
         resultados.push(resultado);
@@ -448,7 +451,7 @@ function get_media_mpa(resultados){
     resultados.forEach(res => {
       ret += parseFloat(res.resistencia)
     })
-    return parseFloat((ret / 6)).toFixed(1)
+    return parseFloat((ret / 6)).toLocaleString('pt-BR',{style: 'decimal', minimumFractionDigits: 1, maximumFractionDigits: 1} )
 }
 
 function get_classe(fbk, com_funcao_estrutural){
@@ -487,7 +490,11 @@ function calcula_fbk(resultados, fbk_teorico){
   fbk_geral = (fbk_geral_list[0] + fbk_geral_list[1]) - fbk_geral_list[2]
   atende_fbk = (parseFloat(fbk_teorico) <= fbk_geral)
 
-  return { fbk: parseFloat(fbk_geral.toFixed(1)), atende_fbk }
+  return { fbk: parseFloat(fbk_geral.toFixed(1)),
+           fbk_f: parseFloat(fbk_geral).toLocaleString('pt-BR',{style: 'decimal', minimumFractionDigits: 1, maximumFractionDigits: 1} ),
+           atende_fbk 
+          
+          }
 
 }
 
