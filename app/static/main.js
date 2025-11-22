@@ -3,11 +3,10 @@ init();
 function init() {
   get_clientes();
   list_relatorios();
- 
 
   setTimeout(() => {
     $("#icon-minus-sub").hide();
-     show_form()
+    show_form();
   }, 400);
 }
 
@@ -37,6 +36,7 @@ $(document).ready(function () {
 
   $(document).on("click", "#icon-plus-sub", (e) => {
     render_form_referencia_blocos();
+    $('#salvar-relatorio').prop('disabled', true).css('background-color', "#ccc")
     $("#icon-minus-sub").show();
   });
 
@@ -48,11 +48,13 @@ $(document).ready(function () {
     if (lote_referencia_blocos == 1) {
       $("#icon-minus-sub").hide();
     }
+
+    habilita_botao_salvar()
   });
 
   $(document).on("click", "#salvar-relatorio", () => {
-     valida_campos()
-    console.log($(`#data_ensaio`).val())
+    valida_campos();
+    console.log($(`#data_ensaio`).val());
     // get_dados_relatorio();
     // insert_relatorio();
   });
@@ -66,6 +68,7 @@ $(document).ready(function () {
   $(document).on("click", "#page-inclusao-relatorio", () => {
     $("#lista_relatorios").fadeOut(300, () => {
       $("#inclusao_relatorio").fadeIn(300);
+      $('#salvar-relatorio').prop('disabled', true).css('background-color', "#ccc")
     });
   });
 
@@ -131,16 +134,26 @@ $(document).ready(function () {
 
     def_dimensoes(lote_id);
   });
+
+  $(document).on('focusout', '.input-rel', () => {
+    habilita_botao_salvar()
+  })
 });
 
+function habilita_botao_salvar(){
+  if(valida_campos()){
+      $('#salvar-relatorio').prop('disabled', false).css('background-color', "")
+    } else {
+      $('#salvar-relatorio').prop('disabled', true).css('background-color', "#ccc")
 
+    }
+}
 
-function show_form(){
+function show_form() {
   $(".div-insercao-relatorio").hide();
   $(`#div-insercao-relatorio__1`).show();
   render_form_referencia_blocos();
   $("#salvar-relatorio").show();
-   
 }
 
 function def_dimensoes(lote_id) {
@@ -149,7 +162,7 @@ function def_dimensoes(lote_id) {
   com_funcao_estrutural = $(`#com_funcao_estrutural__${lote_id}`).val();
 
   if (fbk_teorico && dimensao_teorica && com_funcao_estrutural) {
-    $('.span-dimensao').hide()
+    $(".span-dimensao").hide();
     if (com_funcao_estrutural == "Não") {
       if (dimensao_teorica == "14x19x39") {
         dimensaoChoose[parseInt(lote_id)] = dimensao[0];
@@ -171,15 +184,25 @@ function def_dimensoes(lote_id) {
         }
       }
     }
-    $(`#span-dimensao-comp__${lote_id}`).text(`${dimensaoChoose[parseInt(lote_id)].comprimento}±3mm`)
-    $(`#span-dimensao-largura__${lote_id}`).text(`${dimensaoChoose[parseInt(lote_id)].largura}±2mm`)
-    $(`#span-dimensao-altura__${lote_id}`).text(`${dimensaoChoose[parseInt(lote_id)].altura}±2mm`)
-    $(`#span-dimensao-long__${lote_id}`).text(`≥  ${dimensaoChoose[parseInt(lote_id)].paredes_long} mm`)
-    $(`#span-dimensao-transv__${lote_id}`).text(`≥  ${dimensaoChoose[parseInt(lote_id)].paredes_transv} mm`)
-    $(`#span-dimensao-espessura__${lote_id}`).text(`≥  ${dimensaoChoose[parseInt(lote_id)].espessura} mm`)
-    $(`.span-dimensao`).show()
-
-
+    $(`#span-dimensao-comp__${lote_id}`).text(
+      `${dimensaoChoose[parseInt(lote_id)].comprimento}±3mm`
+    );
+    $(`#span-dimensao-largura__${lote_id}`).text(
+      `${dimensaoChoose[parseInt(lote_id)].largura}±2mm`
+    );
+    $(`#span-dimensao-altura__${lote_id}`).text(
+      `${dimensaoChoose[parseInt(lote_id)].altura}±2mm`
+    );
+    $(`#span-dimensao-long__${lote_id}`).text(
+      `≥  ${dimensaoChoose[parseInt(lote_id)].paredes_long} mm`
+    );
+    $(`#span-dimensao-transv__${lote_id}`).text(
+      `≥  ${dimensaoChoose[parseInt(lote_id)].paredes_transv} mm`
+    );
+    $(`#span-dimensao-espessura__${lote_id}`).text(
+      `≥  ${dimensaoChoose[parseInt(lote_id)].espessura} mm`
+    );
+    $(`.span-dimensao`).show();
 
     console.log(dimensaoChoose);
   }
@@ -363,16 +386,18 @@ function calcular_mpa(lote_id, sub_lote_id) {
   }
 }
 
-function valida_campos(){
-  let ret = true
-  $('.input-rel').get().forEach(obj => {
-    campo = $(`#${obj.id}`)
-    if(!campo.val()){
-      console.log(campo.id)
-      ret = false
-    }
-  })
-  console.log(ret)
+function valida_campos() {
+  let ret = true;
+  $(".input-rel")
+    .get()
+    .forEach((obj) => {
+      campo = $(`#${obj.id}`)
+      if (campo.val() == "" || campo.val() == 0 || campo.val() == "0") {
+        ret = false;
+      } 
+
+    });
+  return ret
 }
 
 function get_dados_relatorio() {
@@ -381,28 +406,46 @@ function get_dados_relatorio() {
   relatorio["cliente"] = clientes.find((c) => c.id == cliente_id);
   relatorio["tipo_material"] = $(`#tipo_material`).val();
   relatorio["data_ensaio"] = moment($(`#data_ensaio`).val());
-  relatorio["data_ensaio_format"] = relatorio["data_ensaio"].format('D [de] MMMM [de] YYYY')
+  relatorio["data_ensaio_format"] = relatorio["data_ensaio"].format(
+    "D [de] MMMM [de] YYYY"
+  );
   relatorio["objetivo"] = $(`#objetivo`).val();
   relatorio["laboratorio"] = $(`#laboratorio`).val();
   relatorio["responsavel"] = $(`#responsavel`).val();
   relatorio["cabecalho"] = $(`#cabecalho`).val();
-  
 
   if (tipo_relatorio == 1) {
     relatorio["lote"] = [];
     for (num_lote = 0; num_lote < lote_referencia_blocos; num_lote++) {
       resultados = [];
-      
+
       for (num_lote_sub = 0; num_lote_sub < 6; num_lote_sub++) {
         resultado = {
           // n_bloco: $(`#n_bloco__${num_lote}__${num_lote_sub}`).val(),
           massa: $(`#massa__${num_lote}__${num_lote_sub}`).val(),
-          massa_f: parseFloat($(`#massa__${num_lote}__${num_lote_sub}`).val()).toLocaleString('pt-BR'),
-          comp: verif_comp_abnt(num_lote, parseFloat($(`#comp__${num_lote}__${num_lote_sub}`).val())),
-          largura: verif_largura_abnt(num_lote, parseFloat($(`#largura__${num_lote}__${num_lote_sub}`).val())),
-          altura: verif_altura_abnt(num_lote, parseFloat($(`#altura__${num_lote}__${num_lote_sub}`).val())),
-          long: verif_long_abnt(num_lote, parseFloat($(`#long__${num_lote}__${num_lote_sub}`).val())),
-          transv: verif_transv_abnt(num_lote, parseFloat($(`#transv__${num_lote}__${num_lote_sub}`).val())),
+          massa_f: parseFloat(
+            $(`#massa__${num_lote}__${num_lote_sub}`).val()
+          ).toLocaleString("pt-BR"),
+          comp: verif_comp_abnt(
+            num_lote,
+            parseFloat($(`#comp__${num_lote}__${num_lote_sub}`).val())
+          ),
+          largura: verif_largura_abnt(
+            num_lote,
+            parseFloat($(`#largura__${num_lote}__${num_lote_sub}`).val())
+          ),
+          altura: verif_altura_abnt(
+            num_lote,
+            parseFloat($(`#altura__${num_lote}__${num_lote_sub}`).val())
+          ),
+          long: verif_long_abnt(
+            num_lote,
+            parseFloat($(`#long__${num_lote}__${num_lote_sub}`).val())
+          ),
+          transv: verif_transv_abnt(
+            num_lote,
+            parseFloat($(`#transv__${num_lote}__${num_lote_sub}`).val())
+          ),
           parede_transv_1: $(
             `#parede-transv-1__${num_lote}__${num_lote_sub}`
           ).val(),
@@ -412,33 +455,57 @@ function get_dados_relatorio() {
           parede_transv_3: $(
             `#parede-transv-3__${num_lote}__${num_lote_sub}`
           ).val(),
-          espessura: verif_espessura_abnt(num_lote, parseFloat($(`#espessura__${num_lote}__${num_lote_sub}`).val())),
+          espessura: verif_espessura_abnt(
+            num_lote,
+            parseFloat($(`#espessura__${num_lote}__${num_lote_sub}`).val())
+          ),
           carga_kgf: $(`#carga-kgf__${num_lote}__${num_lote_sub}`).val(),
           carga_n: $(`#carga-n__${num_lote}__${num_lote_sub}`).val(),
-          carga_n_f: parseFloat($(`#carga-n__${num_lote}__${num_lote_sub}`).val()).toLocaleString('pt-BR',{style: 'decimal', minimumFractionDigits: 0, maximumFractionDigits: 0} ),
-          resistencia: parseFloat($(`#resistencia__${num_lote}__${num_lote_sub}`).val()),
-          resistencia_f: parseFloat($(`#resistencia__${num_lote}__${num_lote_sub}`).val()).toLocaleString('pt-BR',{style: 'decimal', minimumFractionDigits: 1, maximumFractionDigits: 1} )
-
+          carga_n_f: parseFloat(
+            $(`#carga-n__${num_lote}__${num_lote_sub}`).val()
+          ).toLocaleString("pt-BR", {
+            style: "decimal",
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0,
+          }),
+          resistencia: parseFloat(
+            $(`#resistencia__${num_lote}__${num_lote_sub}`).val()
+          ),
+          resistencia_f: parseFloat(
+            $(`#resistencia__${num_lote}__${num_lote_sub}`).val()
+          ).toLocaleString("pt-BR", {
+            style: "decimal",
+            minimumFractionDigits: 1,
+            maximumFractionDigits: 1,
+          }),
         };
 
         resultados.push(resultado);
       }
-      
-      media = get_media_mpa(resultados)
-      fbk_geral = calcula_fbk(resultados, $(`#fbk_teorico__${num_lote}`).val())
-      classe = get_classe(fbk_geral, $(`#com_funcao_estrutural__${num_lote}`).val())
-      norma_abnt = verif_atende_norma_abnt(num_lote, resultados);
-      resultados.sort((a, b) => parseFloat(a.resistencia) - parseFloat(b.resistencia))
-      resultados.forEach((res, index) => {
-        res['ordem'] = index + 1
-      })
 
-      data_fabricacao_moment = moment($(`#data_fabricacao__${num_lote}`).val())
+      media = get_media_mpa(resultados);
+      fbk_geral = calcula_fbk(resultados, $(`#fbk_teorico__${num_lote}`).val());
+      classe = get_classe(
+        fbk_geral,
+        $(`#com_funcao_estrutural__${num_lote}`).val()
+      );
+      norma_abnt = verif_atende_norma_abnt(num_lote, resultados);
+      resultados.sort(
+        (a, b) => parseFloat(a.resistencia) - parseFloat(b.resistencia)
+      );
+      resultados.forEach((res, index) => {
+        res["ordem"] = index + 1;
+      });
+
+      data_fabricacao_moment = moment($(`#data_fabricacao__${num_lote}`).val());
 
       relatorio["lote"][num_lote] = {
         lote: $(`#lote__${num_lote}`).val(),
-        data_fabricacao: data_fabricacao_moment.format('DD/MM/YYYY'),
-        idade_fabicacao: relatorio["data_ensaio"].diff(data_fabricacao_moment, 'day'),
+        data_fabricacao: data_fabricacao_moment.format("DD/MM/YYYY"),
+        idade_fabicacao: relatorio["data_ensaio"].diff(
+          data_fabricacao_moment,
+          "day"
+        ),
         blocos_concreto: $(`#blocos_concreto__${num_lote}`).val(),
         dimensao_teorica: $(`#dimensao_teorica__${num_lote}`).val(),
         fbk_teorico: $(`#fbk_teorico__${num_lote}`).val(),
@@ -448,11 +515,11 @@ function get_dados_relatorio() {
         norma_abnt: norma_abnt,
         fbk: fbk_geral,
         classe: classe,
-        media: media
+        media: media,
       };
     }
-    console.log(relatorio)
-    
+    console.log(relatorio);
+
     relatorio_input = {
       cliente_id: cliente_id,
       nome_cliente: relatorio["cliente"].razao_social,
@@ -462,56 +529,61 @@ function get_dados_relatorio() {
   }
 }
 
-function get_media_mpa(resultados){
-    ret = 0
-    resultados.forEach(res => {
-      ret += parseFloat(res.resistencia)
-    })
-    return parseFloat((ret / 6)).toLocaleString('pt-BR',{style: 'decimal', minimumFractionDigits: 1, maximumFractionDigits: 1} )
+function get_media_mpa(resultados) {
+  ret = 0;
+  resultados.forEach((res) => {
+    ret += parseFloat(res.resistencia);
+  });
+  return parseFloat(ret / 6).toLocaleString("pt-BR", {
+    style: "decimal",
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 1,
+  });
 }
 
-function get_classe(fbk, com_funcao_estrutural){
-  ret = ''
-  fbk_float = parseFloat(fbk.fbk)
-  if(com_funcao_estrutural == "Não"){
-    ret = 'C'
+function get_classe(fbk, com_funcao_estrutural) {
+  ret = "";
+  fbk_float = parseFloat(fbk.fbk);
+  if (com_funcao_estrutural == "Não") {
+    ret = "C";
+  } else if (com_funcao_estrutural == "Sim") {
+    if (fbk_float >= 3 && fbk_float < 4) {
+      ret = "C";
+    } else if (fbk_float >= 4 && fbk_float < 8) {
+      ret = "B";
+    } else if (fbk_float >= 8) {
+      ret = "A";
+    } else {
+      ret = "";
+    }
   }
-  else if(com_funcao_estrutural == "Sim"){
-    if(fbk_float >= 3 && fbk_float < 4){
-      ret = 'C'
-    }
-    else if(fbk_float >= 4 && fbk_float < 8){
-      ret = 'B'
-    }
-    else if(fbk_float >= 8){
-      ret = 'A'
-    }
-    else {
-      ret = ''
-    }
-  } 
 
-  return ret
+  return ret;
 }
 
-function calcula_fbk(resultados, fbk_teorico){
-  fbk_geral_list = []
-      resultados.forEach(res => {
-        fbk_geral_list.push(parseFloat(res.resistencia))
-      })
- 
-  fbk_geral_list.sort((a, b) => parseFloat(a) - parseFloat(b))
-  console.log(fbk_geral_list)
-  console.log(`${fbk_geral_list[0]} - ${fbk_geral_list[1]} - ${fbk_geral_list[2]}`)
-  fbk_geral = (fbk_geral_list[0] + fbk_geral_list[1]) - fbk_geral_list[2]
-  atende_fbk = (parseFloat(fbk_teorico) <= fbk_geral)
+function calcula_fbk(resultados, fbk_teorico) {
+  fbk_geral_list = [];
+  resultados.forEach((res) => {
+    fbk_geral_list.push(parseFloat(res.resistencia));
+  });
 
-  return { fbk: parseFloat(fbk_geral.toFixed(1)),
-           fbk_f: parseFloat(fbk_geral).toLocaleString('pt-BR',{style: 'decimal', minimumFractionDigits: 1, maximumFractionDigits: 1} ),
-           atende_fbk 
-          
-          }
+  fbk_geral_list.sort((a, b) => parseFloat(a) - parseFloat(b));
+  console.log(fbk_geral_list);
+  console.log(
+    `${fbk_geral_list[0]} - ${fbk_geral_list[1]} - ${fbk_geral_list[2]}`
+  );
+  fbk_geral = fbk_geral_list[0] + fbk_geral_list[1] - fbk_geral_list[2];
+  atende_fbk = parseFloat(fbk_teorico) <= fbk_geral;
 
+  return {
+    fbk: parseFloat(fbk_geral.toFixed(1)),
+    fbk_f: parseFloat(fbk_geral).toLocaleString("pt-BR", {
+      style: "decimal",
+      minimumFractionDigits: 1,
+      maximumFractionDigits: 1,
+    }),
+    atende_fbk,
+  };
 }
 
 function verif_atende_norma_abnt(lote_id, resultados) {
@@ -560,96 +632,95 @@ function verif_atende_norma_abnt(lote_id, resultados) {
 function verif_comp_abnt(lote_id, valor) {
   const lote_id_int = parseInt(lote_id);
   const dimensoes = dimensaoChoose[lote_id_int];
-  ret = {valor: parseFloat(valor)}
+  ret = { valor: parseFloat(valor) };
 
   if (
     valor < dimensoes.comprimento - dimensoes.comprimento_step ||
     valor > dimensoes.comprimento + dimensoes.comprimento_step
   ) {
-    ret['atende_abnt'] = false;
+    ret["atende_abnt"] = false;
   } else {
-    ret['atende_abnt'] = true;
+    ret["atende_abnt"] = true;
   }
 
-  return ret
+  return ret;
 }
 
 function verif_largura_abnt(lote_id, valor) {
   const lote_id_int = parseInt(lote_id);
   const dimensoes = dimensaoChoose[lote_id_int];
-  ret = {valor: parseFloat(valor)}
+  ret = { valor: parseFloat(valor) };
 
   if (
     valor < dimensoes.largura - dimensoes.largura_step ||
     valor > dimensoes.largura + dimensoes.largura_step
   ) {
-    ret['atende_abnt'] = false;
+    ret["atende_abnt"] = false;
   } else {
-    ret['atende_abnt'] = true;
+    ret["atende_abnt"] = true;
   }
 
-  return ret
+  return ret;
 }
 
 function verif_altura_abnt(lote_id, valor) {
   const lote_id_int = parseInt(lote_id);
   const dimensoes = dimensaoChoose[lote_id_int];
-  ret = {valor: parseFloat(valor)}
+  ret = { valor: parseFloat(valor) };
 
   if (
     valor < dimensoes.altura - dimensoes.altura_step ||
     valor > dimensoes.altura + dimensoes.altura_step
   ) {
-    ret['atende_abnt'] = false;
+    ret["atende_abnt"] = false;
   } else {
-    ret['atende_abnt'] = true;
+    ret["atende_abnt"] = true;
   }
 
-  return ret
+  return ret;
 }
 
 function verif_long_abnt(lote_id, valor) {
   const lote_id_int = parseInt(lote_id);
   const dimensoes = dimensaoChoose[lote_id_int];
-  ret = {valor: parseFloat(valor)}
+  ret = { valor: parseFloat(valor) };
 
   if (valor < dimensoes.paredes_long) {
-    ret['atende_abnt'] = false;
+    ret["atende_abnt"] = false;
   } else {
-    ret['atende_abnt'] = true;
+    ret["atende_abnt"] = true;
   }
 
-  return ret
+  return ret;
 }
 
 function verif_transv_abnt(lote_id, valor) {
   const lote_id_int = parseInt(lote_id);
   const dimensoes = dimensaoChoose[lote_id_int];
-  ret = {valor: parseFloat(valor)}
+  ret = { valor: parseFloat(valor) };
 
   if (valor < dimensoes.paredes_transv) {
-    ret['atende_abnt'] = false;
+    ret["atende_abnt"] = false;
   } else {
-    ret['atende_abnt'] = true;
+    ret["atende_abnt"] = true;
   }
 
-  return ret
+  return ret;
 }
 
 function verif_espessura_abnt(lote_id, valor) {
   const lote_id_int = parseInt(lote_id);
   const dimensoes = dimensaoChoose[lote_id_int];
-  ret = {valor: parseFloat(valor)}
+  ret = { valor: parseFloat(valor) };
 
   if (valor < dimensoes.espessura) {
-    ret['atende_abnt'] = false;
+    ret["atende_abnt"] = false;
   } else {
-    ret['atende_abnt'] = true;
+    ret["atende_abnt"] = true;
   }
 
-  return ret
+  return ret;
 }
-
 
 function insert_relatorio() {
   $.ajax({
