@@ -53,10 +53,13 @@ $(document).ready(function () {
   });
 
   $(document).on("click", "#salvar-relatorio", () => {
-    valida_campos();
-    console.log($(`#data_ensaio`).val());
-    // get_dados_relatorio();
-    // insert_relatorio();
+    get_dados_relatorio();
+    insert_relatorio();
+
+    list_relatorios()
+    $("#inclusao_relatorio").fadeOut(300, () => {
+      $("#lista_relatorios").fadeIn(300);
+    });
   });
 
   $(document).on("click", "#page-lista", () => {
