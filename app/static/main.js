@@ -141,6 +141,27 @@ $(document).ready(function () {
   $(document).on('focusout', '.input-rel', () => {
     habilita_botao_salvar()
   })
+
+  $(document).on('click','#button_insert_cliente', () => {
+    console.log('ok')
+    $('#modal-overlay').show()
+    $('#modal-insert-cliente').show()
+  })
+
+  $(document).on('click', '#modal-overlay', () => {
+    $('#modal-overlay').hide()
+    $('#modal-insert-cliente').hide()
+  })
+
+  $(document).on('click', '#save_cliente', (e) => {
+    const razao_social = $('#razao_social').val()
+    const endereco =  $('#endereco_empresa').val()
+    const nome_cabecalho = $('#nome_simp').val()
+    const dados = { razao_social, endereco, nome_cabecalho}
+
+    save_cliente(dados)
+
+  })
 });
 
 function habilita_botao_salvar(){
@@ -225,7 +246,7 @@ function get_clientes() {
 function render_select_clientes() {
   $("#cliente_id").html("").append(`<option value="0">SELECIONE O CLIENTE`);
   clientes.forEach((cliente) => {
-    div = `<option value=${cliente.id}> ${cliente.razao_social}`;
+    div = `<option id='option_cliente_${cliente.id}' value=${cliente.id}> ${cliente.razao_social}`;
     $("#cliente_id").append(div);
   });
 }
@@ -763,4 +784,23 @@ function render_lista_relatorios() {
       `;
     $("#table-lista-relatorios").append(div);
   });
+}
+
+function save_cliente(dados){
+  $.ajax({
+    url: '/insert_cliente',
+    data: dados,
+    method: 'post',
+    success: (response) => {
+      const cliente = response
+      get_clientes();
+      $('#modal-overlay').fadeOut(200)
+      $('#modal-insert-cliente').fadeOut(200)
+
+      setTimeout(() => {
+        console.log($(`#cliente_id option[value='${cliente.id}']`).val())
+         $(`#cliente_id option[value='${cliente.id}']`).prop('selected', true);
+      }, 400)
+    }
+  })
 }

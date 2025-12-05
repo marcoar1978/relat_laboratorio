@@ -12,6 +12,7 @@ class Relatorio(db.Model):
     tipo_relatorio = db.Column(db.Integer)
     data_inclusao = db.Column(db.DateTime)
     detalhes = db.Column(JSONB)
+    
 
     def to_dict(self):
         detalhes_dict = None

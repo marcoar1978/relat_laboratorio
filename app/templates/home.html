@@ -74,7 +74,7 @@
             id="cliente_id"
             style="width: 250px;"
           ></select>
-          <button type="button" class="btn btn-light" style="margin-left: 20px">
+          <button type="button" id="button_insert_cliente" class="btn btn-light" style="margin-left: 20px">
             Novo Cliente
           </button>
         </div>
@@ -213,5 +213,36 @@
         </tbody>  
       </table>
     </div>
+
+    <div id="modal-overlay"></div>
+
+    <div id="modal-insert-cliente">
+      <div style="margin-bottom: 15px;"><b>Inclusão de cliente</b></div>
+        <input
+          type="input"
+          class="form-control"
+          id="razao_social"
+          placeholder="Razão social"
+          style="margin-bottom: 15px;"
+        />
+         <input
+          type="input"
+          class="form-control"
+          id="nome_simp"
+          placeholder="Nome simplificado (para o cabeçalho)"
+          style="margin-bottom: 15px;"
+        />
+        <input
+          type="input"
+          class="form-control"
+          id="endereco_empresa"
+          placeholder="Endereço"
+          style="margin-bottom: 15px;"
+        />
+      <div style="display:flex;justify-content: right;margin-top:30px">
+        <button id="save_cliente" class="btn btn-primary">Salvar</button>
+      </div>  
+    </div>
+
   </body>
 </html>
