@@ -436,7 +436,10 @@ function get_dados_relatorio() {
   relatorio["objetivo"] = $(`#objetivo`).val();
   relatorio["laboratorio"] = $(`#laboratorio`).val();
   relatorio["responsavel"] = $(`#responsavel`).val();
-  relatorio["cabecalho"] = $(`#cabecalho`).val();
+  relatorio["data_relatorio"] = moment($(`#data_relatorio`).val());
+  relatorio["data_relatorio_format_comp"] = relatorio["data_relatorio"].format(
+    "[São Paulo], D [de] MMMM [de] YYYY"
+  );
 
   if (tipo_relatorio == 1) {
     relatorio["lote"] = [];
