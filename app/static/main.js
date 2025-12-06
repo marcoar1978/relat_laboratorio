@@ -437,6 +437,9 @@ function get_dados_relatorio() {
   relatorio["laboratorio"] = $(`#laboratorio`).val();
   relatorio["responsavel"] = $(`#responsavel`).val();
   relatorio["data_relatorio"] = moment($(`#data_relatorio`).val());
+  relatorio["data_relatorio_format_simp"] = relatorio["data_relatorio"].format(
+    " D[/]MM[/]YYYY"
+  );
   relatorio["data_relatorio_format_comp"] = relatorio["data_relatorio"].format(
     "[São Paulo], D [de] MMMM [de] YYYY"
   );
@@ -773,20 +776,39 @@ function list_relatorios() {
 }
 
 function render_lista_relatorios() {
-  $("#table-lista-relatorios").html("");
+  if (table_relatorio) table_relatorio.destroy()
+  $("#table-lista-relatorios").fadeOut(200)
+  $("#table-body-lista-relatorios").html("");
   relatorios.forEach((rel) => {
     div = `
       <tr>
         <td>${rel.nome_cliente}</td>
-        <td style="text-align: center;">--</td>
-        <td style="text-align: center;">--</td>
+        <td style="text-align: center;">${rel.detalhes.data_relatorio_format_simp}</td>
+        <td style="text-align: center;">${rel.detalhes.lote.length}</td>
         <td style="text-align: center;">
-          <i class="bi bi-file-text icon-download" style='cursor:pointer;color:#000099;font-size:18px' id='icon-download__${rel.id}'></i>
+          <i class="bi bi-download icon-download" style='cursor:pointer;color:#000099;font-size:18px' id='icon-download__${rel.id}'></i>
         </td>
       </tr>
       `;
-    $("#table-lista-relatorios").append(div);
+    $("#table-body-lista-relatorios").append(div);
   });
+
+  table_relatorio = $('#table-lista-relatorios').DataTable({
+            layout: {
+                topStart: null,
+                topEnd: 'search',
+                bottomStart: 'info',
+                bottomEnd: 'paging',
+            },
+            language: {
+                url: '/dataTablePt'
+            },
+            pageLength: 10,
+            pagingType: "full_numbers",
+            columns: [{ width: '60%' }, { width: '10%' }, { width: '10%' }, { width: '10%' } ],
+        })
+
+      $("#table-lista-relatorios").fadeIn(200)
 }
 
 function save_cliente(dados){

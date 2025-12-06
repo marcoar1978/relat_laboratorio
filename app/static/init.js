@@ -5,6 +5,7 @@ relatorio_input = {};
 relatorio = {};
 lote_referencia_blocos = 0;
 lote_referencia_blocos_sub = [];
+table_relatorio = null
 
 dimensaoChoose = [];
 classe = [];
