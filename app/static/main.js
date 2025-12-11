@@ -36,7 +36,9 @@ $(document).ready(function () {
 
   $(document).on("click", "#icon-plus-sub", (e) => {
     render_form_referencia_blocos();
-    $('#salvar-relatorio').prop('disabled', true).css('background-color', "#ccc")
+    $("#salvar-relatorio")
+      .prop("disabled", true)
+      .css("background-color", "#ccc");
     $("#icon-minus-sub").show();
   });
 
@@ -49,17 +51,18 @@ $(document).ready(function () {
       $("#icon-minus-sub").hide();
     }
 
-    habilita_botao_salvar()
+    habilita_botao_salvar();
   });
 
   $(document).on("click", "#salvar-relatorio", () => {
     get_dados_relatorio();
     insert_relatorio();
-
-    list_relatorios()
-    $("#inclusao_relatorio").fadeOut(300, () => {
-      $("#lista_relatorios").fadeIn(300);
-    });
+    setTimeout(() => {
+      list_relatorios();
+      $("#inclusao_relatorio").fadeOut(300, () => {
+        $("#lista_relatorios").fadeIn(300);
+      });
+    }, 400);
   });
 
   $(document).on("click", "#page-lista", () => {
@@ -71,7 +74,9 @@ $(document).ready(function () {
   $(document).on("click", "#page-inclusao-relatorio", () => {
     $("#lista_relatorios").fadeOut(300, () => {
       $("#inclusao_relatorio").fadeIn(300);
-      $('#salvar-relatorio').prop('disabled', true).css('background-color', "#ccc")
+      $("#salvar-relatorio")
+        .prop("disabled", true)
+        .css("background-color", "#ccc");
     });
   });
 
@@ -138,39 +143,49 @@ $(document).ready(function () {
     def_dimensoes(lote_id);
   });
 
-  $(document).on('focusout', '.input-rel', () => {
-    habilita_botao_salvar()
-  })
+  $(document).on("focusout", ".input-rel", () => {
+    habilita_botao_salvar();
+  });
 
-  $(document).on('click','#button_insert_cliente', () => {
-    console.log('ok')
-    $('#modal-overlay').show()
-    $('#modal-insert-cliente').show()
-  })
+  $(document).on("click", "#button_insert_cliente", () => {
+    console.log("ok");
+    $("#modal-overlay").show();
+    $("#modal-insert-cliente").show();
+  });
 
-  $(document).on('click', '#modal-overlay', () => {
-    $('#modal-overlay').hide()
-    $('#modal-insert-cliente').hide()
-  })
+  $(document).on("click", "#modal-overlay", () => {
+    $("#modal-overlay").hide();
+    $("#modal-insert-cliente").hide();
+    $(".dados-cliente").val("");
+  });
 
-  $(document).on('click', '#save_cliente', (e) => {
-    const razao_social = $('#razao_social').val()
-    const endereco =  $('#endereco_empresa').val()
-    const nome_cabecalho = $('#nome_simp').val()
-    const dados = { razao_social, endereco, nome_cabecalho}
+  $(document).on("click", "#save_cliente", (e) => {
+    const razao_social = $("#razao_social").val();
+    const endereco = $("#endereco_empresa").val();
+    const nome_cabecalho = $("#nome_simp").val();
 
-    save_cliente(dados)
-
-  })
+    if (razao_social && endereco && nome_cabecalho) {
+      const dados = { razao_social, endereco, nome_cabecalho };
+      save_cliente(dados);
+      $(".dados-cliente").val("");
+    } else {
+      $('#msg-valid-cliente').fadeIn(300, () => {
+        setTimeout(() => {
+           $('#msg-valid-cliente').fadeOut(300)
+        }, 1500)
+      })
+    }
+  });
 });
 
-function habilita_botao_salvar(){
-  if(valida_campos()){
-      $('#salvar-relatorio').prop('disabled', false).css('background-color', "")
-    } else {
-      $('#salvar-relatorio').prop('disabled', true).css('background-color', "#ccc")
-
-    }
+function habilita_botao_salvar() {
+  if (valida_campos()) {
+    $("#salvar-relatorio").prop("disabled", false).css("background-color", "");
+  } else {
+    $("#salvar-relatorio")
+      .prop("disabled", true)
+      .css("background-color", "#ccc");
+  }
 }
 
 function show_form() {
@@ -415,13 +430,12 @@ function valida_campos() {
   $(".input-rel")
     .get()
     .forEach((obj) => {
-      campo = $(`#${obj.id}`)
+      campo = $(`#${obj.id}`);
       if (campo.val() == "" || campo.val() == 0 || campo.val() == "0") {
         ret = false;
-      } 
-
+      }
     });
-  return ret
+  return ret;
 }
 
 function get_dados_relatorio() {
@@ -437,9 +451,8 @@ function get_dados_relatorio() {
   relatorio["laboratorio"] = $(`#laboratorio`).val();
   relatorio["responsavel"] = $(`#responsavel`).val();
   relatorio["data_relatorio"] = moment($(`#data_relatorio`).val());
-  relatorio["data_relatorio_format_simp"] = relatorio["data_relatorio"].format(
-    " D[/]MM[/]YYYY"
-  );
+  relatorio["data_relatorio_format_simp"] =
+    relatorio["data_relatorio"].format(" D[/]MM[/]YYYY");
   relatorio["data_relatorio_format_comp"] = relatorio["data_relatorio"].format(
     "[São Paulo], D [de] MMMM [de] YYYY"
   );
@@ -776,8 +789,8 @@ function list_relatorios() {
 }
 
 function render_lista_relatorios() {
-  if (table_relatorio) table_relatorio.destroy()
-  $("#table-lista-relatorios").fadeOut(200)
+  if (table_relatorio) table_relatorio.destroy();
+  $("#table-lista-relatorios").fadeOut(200);
   $("#table-body-lista-relatorios").html("");
   relatorios.forEach((rel) => {
     div = `
@@ -793,39 +806,45 @@ function render_lista_relatorios() {
     $("#table-body-lista-relatorios").append(div);
   });
 
-  table_relatorio = $('#table-lista-relatorios').DataTable({
-            layout: {
-                topStart: null,
-                topEnd: 'search',
-                bottomStart: 'info',
-                bottomEnd: 'paging',
-            },
-            language: {
-                url: '/dataTablePt'
-            },
-            pageLength: 10,
-            pagingType: "full_numbers",
-            columns: [{ width: '60%' }, { width: '10%' }, { width: '10%' }, { width: '10%' } ],
-        })
+  table_relatorio = $("#table-lista-relatorios").DataTable({
+    ordering: false,
+    layout: {
+      topStart: null,
+      topEnd: "search",
+      bottomStart: "info",
+      bottomEnd: "paging",
+    },
+    language: {
+      url: "/dataTablePt",
+    },
+    pageLength: 10,
+    pagingType: "full_numbers",
+    columns: [
+      { width: "60%" },
+      { width: "10%" },
+      { width: "10%" },
+      { width: "10%" },
+    ],
+  });
 
-      $("#table-lista-relatorios").fadeIn(200)
+  $("#table-lista-relatorios").fadeIn(200);
 }
 
-function save_cliente(dados){
+function save_cliente(dados) {
   $.ajax({
-    url: '/insert_cliente',
+    url: "/insert_cliente",
     data: dados,
-    method: 'post',
+    method: "post",
     success: (response) => {
-      const cliente = response
+      const cliente = response;
       get_clientes();
-      $('#modal-overlay').fadeOut(200)
-      $('#modal-insert-cliente').fadeOut(200)
+      $("#modal-overlay").fadeOut(200);
+      $("#modal-insert-cliente").fadeOut(200);
 
       setTimeout(() => {
-        console.log($(`#cliente_id option[value='${cliente.id}']`).val())
-         $(`#cliente_id option[value='${cliente.id}']`).prop('selected', true);
-      }, 400)
-    }
-  })
+        console.log($(`#cliente_id option[value='${cliente.id}']`).val());
+        $(`#cliente_id option[value='${cliente.id}']`).prop("selected", true);
+      }, 400);
+    },
+  });
 }

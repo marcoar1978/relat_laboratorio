@@ -1,4 +1,5 @@
 from flask import send_file
+from sqlalchemy import desc
 from app.extensions.database import db
 from app.models.relatorio import Relatorio
 from app.models.cliente import Cliente
@@ -25,7 +26,7 @@ def insert_relatorio_db(relatorio):
     db.session.commit()
 
 def list_relatorios_db():
-     relatorios = Relatorio.query.all()
+     relatorios = Relatorio.query.order_by(desc(Relatorio.id)).limit(100).all()
 
      return [relatorio.to_dict() for relatorio in relatorios]
      
