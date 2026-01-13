@@ -130,6 +130,13 @@ $(document).ready(function () {
       const result = (primeira + segunda + terceira) / (comp / 1000);
       $(`#espessura__${lote_id}__${sub_lote_id}`).val(result.toFixed(0));
     }
+
+    if (!isNaN(primeira) &&
+      !isNaN(segunda) &&
+      !isNaN(terceira)){
+        const media_transv = ((primeira + segunda + terceira)/3).toFixed(0)
+        $(`#transv__${lote_id}__${sub_lote_id}`).val(media_transv)
+     }
   });
 
   $(document).on("change", ".dimensao_teorica, .com_funcao_estrutural", (e) => {
@@ -395,7 +402,7 @@ function render_form_referencia_blocos_content_sub() {
             <td class='th-cel-table'><input type='text' id='largura__${lote_referencia_blocos}__${i}' class="largura mpa form-control input-rel"></td>
             <td class='th-cel-table'><input type='text' id='altura__${lote_referencia_blocos}__${i}'  class="altura form-control input-rel"></td>
             <td class='th-cel-table'><input type='text' id='long__${lote_referencia_blocos}__${i}' class="long form-control input-rel"></td>
-            <td class='th-cel-table'><input type='text' id='transv__${lote_referencia_blocos}__${i}' class="transv form-control input-rel"></td>
+            <td class='th-cel-table'><input type='text' id='transv__${lote_referencia_blocos}__${i}' disabled=disabled class="transv form-control input-rel"></td>
             <td class='th-cel-table'><input type='text' id='parede-transv-1__${lote_referencia_blocos}__${i}'  class="parede-transv form-control input-rel"></td>
             <td class='th-cel-table'><input type='text' id='parede-transv-2__${lote_referencia_blocos}__${i}' class="parede-transv form-control input-rel"></td>
             <td class='th-cel-table'><input type='text' id='parede-transv-3__${lote_referencia_blocos}__${i}'  class="parede-transv form-control input-rel"></td>
