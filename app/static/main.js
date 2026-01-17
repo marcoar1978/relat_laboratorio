@@ -449,12 +449,14 @@ function get_dados_relatorio() {
   relatorio = {};
   cliente_id = $(`#cliente_id`).val();
   relatorio["cliente"] = clientes.find((c) => c.id == cliente_id);
-  relatorio["tipo_material"] = $(`#tipo_material`).val();
+  // relatorio["tipo_material"] = $(`#tipo_material`).val();
+  relatorio["tipo_material"] = "Bloco de concreto";
   relatorio["data_ensaio"] = moment($(`#data_ensaio`).val());
   relatorio["data_ensaio_format"] = relatorio["data_ensaio"].format(
     "D [de] MMMM [de] YYYY"
   );
-  relatorio["objetivo"] = $(`#objetivo`).val();
+  // relatorio["objetivo"] = $(`#objetivo`).val();
+  relatorio["objetivo"] = "";
   relatorio["laboratorio"] = $(`#laboratorio`).val();
   relatorio["responsavel"] = $(`#responsavel`).val();
   relatorio["data_relatorio"] = moment($(`#data_relatorio`).val());
