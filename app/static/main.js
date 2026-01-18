@@ -56,13 +56,13 @@ $(document).ready(function () {
 
   $(document).on("click", "#salvar-relatorio", () => {
     get_dados_relatorio();
-    insert_relatorio();
-    setTimeout(() => {
-      list_relatorios();
-      $("#inclusao_relatorio").fadeOut(300, () => {
-        $("#lista_relatorios").fadeIn(300);
-      });
-    }, 400);
+    // insert_relatorio();
+    // setTimeout(() => {
+    //   list_relatorios();
+    //   $("#inclusao_relatorio").fadeOut(300, () => {
+    //     $("#lista_relatorios").fadeIn(300);
+    //   });
+    // }, 400);
   });
 
   $(document).on("click", "#page-lista", () => {
@@ -465,6 +465,9 @@ function get_dados_relatorio() {
   relatorio["data_relatorio_format_comp"] = relatorio["data_relatorio"].format(
     "[São Paulo], D [de] MMMM [de] YYYY"
   );
+  relatorio["local_cliente"] = $(`#local_cliente`).val();
+  relatorio["tipo_cimento"] = $(`#tipo_cimento`).val();
+  relatorio["local_fabrica"] = $(`#local_fabrica`).val();
 
   if (tipo_relatorio == 1) {
     relatorio["lote"] = [];

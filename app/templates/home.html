@@ -93,7 +93,7 @@
             <option value="2">Tipo 2</option>
             <option value="3">Tipo 3</option>
           </select> -->
-          <div style="width: 150px;">ENSAIO: </div><input type="date" class="form-control input-rel"  id="data_ensaio" >
+          <div style="width: 150px;">Data ensaio: </div><input type="date" class="form-control input-rel"  id="data_ensaio" >
         </div>
       </div>
 
@@ -118,25 +118,25 @@
         />
       </div> -->
       <div style="display: flex; justify-content: start; margin-top: 20px">
-          <select
-          class="form-select input-rel"
-          id="laboratorio"
-          style="width: 250px;"
-        >
-          <option value="0">LABORATÓRIO</option>
-          <option value="Móvel">Móvel</option>
-          <option value="Externo">Externo</option>
-        </select>
+
+        <input
+          type="input"
+          class="form-control input-rel"
+          id="local_cliente"
+          placeholder="CIDADE-UF (CLIENTE)"
+          style="width:300px"
+        />
+          
       
       <input
           type="input"
           class="form-control input-rel"
           id="responsavel"
-          placeholder="Responsável"
+          placeholder="RESPONSÁVEL"
           style="margin-left: 20px; width:500px"
         />
 
-        <div style="margin-left: 15px">Data do relatório</div>
+        <div style="margin-left: 50px">Data relatório</div>
        <input type="date" class="form-control input-rel" style="width: 200px;margin-left: 15px;"  id="data_relatorio">
         <!-- <input
           type="input"
@@ -145,7 +145,53 @@
           placeholder="Cabeçalho: Empresa - Data"
           style="margin-left: 20px;"
         /> -->
-     </div>   
+     </div>  
+     <div style="display: flex; justify-content: start; margin-top: 20px">
+
+      <select
+          class="form-select input-rel"
+          id="laboratorio"
+          style="width: 250px;"
+        >
+          <option value="0">LABORATÓRIO</option>
+          <option value="Móvel">Móvel</option>
+          <option value="Externo">Externo</option>
+        </select>
+
+      <select
+          class="form-select input-rel"
+          id="local_fabrica"
+          style="width: 250px;margin-left: 20px;"
+        >
+          <option value="0">LOCAL DA FABRICA</option>
+          <option value="Apiaí-SP">Apiaí-SP</option>
+          <option value="Cajati-SP">Cajati-SP</option>
+          <option value="Ijaci-MG">Ijaci-MG</option>
+          <option value="Santana do Paraíso-MG">Santana do Paraíso-MG</option>
+         
+        </select>
+
+        <select
+          class="form-select input-rel"
+          id="tipo_cimento"
+          style="width: 350px;margin-left: 20px;"
+        >
+          <option value="0">TIPO DE CIMENTO</option>
+          <option value="CP II E 32 USO GERAL 50kg">CP II E 32 USO GERAL 50kg</option>
+          <option value="CP II F 32 USO GERAL 50kg">CP II F 32 USO GERAL 50kg</option>
+          <option value="CP II F 40 EST GRANEL">CP II F 40 EST GRANEL</option>
+          <option value="CP II F 40 EST BIG BAG 1.500kg">CP II F 40 EST BIG BAG 1.500kg</option>
+          <option value="CP III 40 RS USO GERAL 50kg">CP III 40 RS USO GERAL 50kg</option>
+          <option value="CP III 40 RS MAIS GRANEL">CP III 40 RS MAIS GRANEL</option>
+          <option value="CP V ARI RS EXATO GRANEL">CP V ARI RS EXATO GRANEL</option>
+          <option value="CP V ARI EST 40kg">CP V ARI EST 40kg</option>
+          <option value="CP V ARI EST GRANEL">CP V ARI EST GRANEL</option>
+          <option value="CP V ARI EST BIG BAG 1.500kg">CP V ARI EST BIG BAG 1.500kg</option>
+        </select>
+
+        
+
+     </div> 
 
       <div
         id="div-insercao-relatorio__1"
