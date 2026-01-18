@@ -56,13 +56,13 @@ $(document).ready(function () {
 
   $(document).on("click", "#salvar-relatorio", () => {
     get_dados_relatorio();
-    // insert_relatorio();
-    // setTimeout(() => {
-    //   list_relatorios();
-    //   $("#inclusao_relatorio").fadeOut(300, () => {
-    //     $("#lista_relatorios").fadeIn(300);
-    //   });
-    // }, 400);
+    insert_relatorio();
+    setTimeout(() => {
+      list_relatorios();
+      $("#inclusao_relatorio").fadeOut(300, () => {
+        $("#lista_relatorios").fadeIn(300);
+      });
+    }, 400);
   });
 
   $(document).on("click", "#page-lista", () => {

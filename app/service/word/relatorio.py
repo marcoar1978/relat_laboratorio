@@ -70,9 +70,13 @@ def gerar_relatorio(dados):
         'responsavel': dados.get('responsavel'),
         'cabecalho': dados.get('cliente').get('nome_cabecalho'),
         'data_relatorio': dados.get('data_relatorio_format_comp'),
+        'local_cliente': dados.get('local_cliente'),
+        'tipo_cimento': dados.get('tipo_cimento'),
+        'local_fabrica': dados.get('local_fabrica'),
 
 
         'lotes': dados.get('lote'),
+        'qde_lotes': len(dados.get('lote')),
         'lotes_result': lotes_format,
         
     }
