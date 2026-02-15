@@ -1,4 +1,5 @@
 init();
+console.log('v022026')
 
 function init() {
   get_clientes();
