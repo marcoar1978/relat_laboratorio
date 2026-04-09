@@ -1,5 +1,5 @@
 init();
-console.log('v022026')
+console.log('v09042026')
 
 function init() {
   get_clientes();
@@ -631,7 +631,7 @@ function calcula_fbk(resultados, fbk_teorico) {
   // fbk_geral = fbk_geral_list[0] + fbk_geral_list[1] - fbk_geral_list[2];
   // atende_fbk = parseFloat(fbk_teorico) <= fbk_geral;
   media_5_menores = (fbk_geral_list[0] + fbk_geral_list[1] + fbk_geral_list[2] + fbk_geral_list[3] + fbk_geral_list[4])/5
-  fbk_geral = media_5_menores - fbk_geral_list[5]
+  fbk_geral = (2 * media_5_menores) - fbk_geral_list[5]
   atende_fbk = parseFloat(fbk_teorico) <= fbk_geral;
   
   return {
