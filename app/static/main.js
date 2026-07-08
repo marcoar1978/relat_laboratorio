@@ -1,5 +1,5 @@
 init();
-console.log('v20042026')
+console.log('v08072026')
 
 function init() {
   get_clientes();
@@ -624,14 +624,14 @@ function calcula_fbk(resultados, fbk_teorico) {
   });
  console.log(fbk_geral_list)
   fbk_geral_list.sort((a, b) => parseFloat(a) - parseFloat(b));
-  console.log(fbk_geral_list);
-  console.log(
-    `${fbk_geral_list[0]} - ${fbk_geral_list[1]} - ${fbk_geral_list[2]}`
-  );
-  // fbk_geral = fbk_geral_list[0] + fbk_geral_list[1] - fbk_geral_list[2];
+  // console.log(fbk_geral_list);
+  // console.log(
+  //   `${fbk_geral_list[0]} - ${fbk_geral_list[1]} - ${fbk_geral_list[2]}`
+  // );
+  fbk_geral = fbk_geral_list[0] + fbk_geral_list[1] - fbk_geral_list[2];
   // atende_fbk = parseFloat(fbk_teorico) <= fbk_geral;
   media_5_menores = (fbk_geral_list[0] + fbk_geral_list[1] + fbk_geral_list[2] + fbk_geral_list[3] + fbk_geral_list[4])/5
-  fbk_geral = (2 * media_5_menores) - fbk_geral_list[5]
+  // fbk_geral = (2 * media_5_menores) - fbk_geral_list[5]
   atende_fbk = parseFloat(fbk_teorico) <= fbk_geral;
   
   return {
